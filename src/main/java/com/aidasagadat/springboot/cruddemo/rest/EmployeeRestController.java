@@ -2,7 +2,9 @@ package com.aidasagadat.springboot.cruddemo.rest;
 
 import com.aidasagadat.springboot.cruddemo.dao.EmployeeDAO;
 import com.aidasagadat.springboot.cruddemo.entity.Employee;
+import com.aidasagadat.springboot.cruddemo.service.EmployeeService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,19 +14,50 @@ import java.util.List;
 @RequestMapping("/api")
 public class EmployeeRestController {
 
-    // inject employeeDao
-    private EmployeeDAO employeeDAO;
 
-    public EmployeeRestController(EmployeeDAO employeeDAO) {
-        this.employeeDAO = employeeDAO;
+    private EmployeeService employeeService;
+
+    public EmployeeRestController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
-
-
-    // expose "/employees" and return a list of employees
 
     @GetMapping("/employees")
     public List<Employee> findAll(){
-        return employeeDAO.findAll();
+        return employeeService.findAll();
     }
 
+
+    @GetMapping("/employees/{employeeId}")
+    public Employee findById(@PathVariable int employeeId){
+        Employee employee = employeeService.findById(employeeId);
+        if(employee == null){
+            throw new RuntimeException("Employee id not found " + employeeId);
+        }
+
+        return employee;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
