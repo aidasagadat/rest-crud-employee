@@ -6,13 +6,12 @@ import java.util.List;
 
 public interface EmployeeService {
     List<Employee> findAll();
-<<<<<<< HEAD
+
 
     Employee findById(int id);
 
     Employee save(Employee employee);
 
     void deleteById(int id);
-=======
->>>>>>> origin/master
+
 }
